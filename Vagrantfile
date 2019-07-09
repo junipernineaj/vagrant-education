@@ -27,7 +27,8 @@ Vagrant.configure("2") do |config|
   # NOTE: This will enable public access to the opened port
   # config.vm.network "forwarded_port", guest: 80, host: 8080
 
-config.vm.network "forwarded_port", guest: 80, host: 8081
+config.vm.network "forwarded_port", guest: 80, host: 8080, auto_correct: true
+config.vm.usable_port_range = (2200..2250)
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine and only allow access
@@ -36,12 +37,20 @@ config.vm.network "forwarded_port", guest: 80, host: 8081
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
+  # in V1 it was config.vm.network "hostonly", "192.168.33.10" - now it is:
   # config.vm.network "private_network", ip: "192.168.33.10"
+
+  #config.vm.network "private_network", ip: "192.168.33.10"
+#config.vm.network "private_network", ip: "192.168.33.10"
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
   # your network.
   # config.vm.network "public_network"
+  # In V1 a bridged network was defined with: config.vm.network "bridged"
+  # now it is 
+
+#config.vm.network "public_network"
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
