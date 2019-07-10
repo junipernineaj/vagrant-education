@@ -23,12 +23,15 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "web" do |web|
     web.vm.network "forwarded_port", guest: 80, host: 8080, auto_correct: true
+    web.vm.network "private_network", ip: "192.168.33.10"
     web.vm.provision :shell, path: "provision.sh"
+    web.vm.provision :shell, inline: "apt-get -y install mysql-client"
     web.vm.usable_port_range = (2200..2250)
   end
 
-  config.vm.define "db" do |db|
-    # We'll fill this in soon.
+   config.vm.define "db" do |db|
+     db.vm.provision :shell, path: "db_provision.sh"
+     db.vm.network "private_network", ip: "192.168.33.11"
   end
  
   # Create a forwarded port mapping which allows access to a specific port
